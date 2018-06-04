@@ -28,7 +28,6 @@ var App = (function() {
     };
     return {
         drake: null, //存放dragula副本
-        records: [],
         init: function() {
             globalSetting();
             App.handleLike();
@@ -99,7 +98,7 @@ var App = (function() {
                             bottom: 0
                         });
                         App.handleListScroller('[data-role="slimScroll-categories"]');
-                        toastr.warning('IE8不支持组件搜索（其他可正常使用），为了获得更好体验建议使用谷歌浏览器。', '友情提醒！')
+                        toastr.error('IE8不支持组件搜索（其他可正常使用），为了获得更好体验建议使用谷歌浏览器。', '友情提醒！')
                         return
                     }
                     $.getScript('./js/list.min.js', function() {
@@ -217,7 +216,7 @@ var App = (function() {
             //预览
             $('body').on('click', '[data-role="preview-toggler"]', function() {
                 if ($('[data-role="canvas"]').find('[data-category]').size() == 0) {
-                    toastr.warning('画布是空的，你逗我呢。', '提醒！');
+                    toastr.error('画布是空的，你逗我呢。', '提醒！');
                     return
                 }
                 var $modal = $('#myModal');
@@ -227,6 +226,29 @@ var App = (function() {
                 $modal.off('hidden.bs.modal').on('hidden.bs.modal', function(e) {
                     $modal.find('.modal-body').empty();
                 })
+            });
+            $('body').on('click', '[data-role="save-toggler"]', function() {
+                if ($('[data-role="canvas"]').find('[data-category]').size() == 0) {
+                    toastr.error('画布是空的，你逗我呢。', '提醒！');
+                    return
+                }
+                $.ajax({
+                    url: 'http://localhost:8888/bss-form-builder/mock/list.json',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {data: App.parseData()},
+                })
+                .done(function() {
+                    console.log(JSON.stringify(App.parseData(), null, '\t'))
+                    toastr.success('提交成功', '恭喜！');
+                })
+                .fail(function() {
+                    console.log("error");
+                })
+                .always(function() {
+                    console.log("complete");
+                });
+                
             });
             // $('[data-role="full-screen-toggler"]').toggle($(document).fullScreen() != null))
         },
@@ -259,13 +281,13 @@ var App = (function() {
              }]
          */
         parseData: function() {
-            App.records = [];
+            var records = [];
             $('[data-role="canvas"]').find('[data-category]').each(function(index, el) {
                 // 开始遍历
                 // 1、遇到不被容器组件包含的对象组件，直接push
                 // 2、遇到容器组件，加一个children:[]，然后遍历里面的对象组件，挂载到children
                 if ($(this).data('category') == 'basic' && $(this).closest('.dragula-group').size() == 0) {
-                    App.records.push($(this).data());
+                    records.push($(this).data());
                 } else if ($(this).data('category') == 'group') {
                     var obj = $.extend({}, $(this).data(), {
                         children: []
@@ -273,11 +295,10 @@ var App = (function() {
                     $(this).find('[data-category]').each(function(index, el) {
                         obj.children.push($(this).data());
                     });
-                    App.records.push(obj);
+                    records.push(obj);
                 }
-            });
-            console.log(JSON.stringify(App.records, null, '\t'))
-            return App.records;
+            });            
+            return records;
         },
         /** 
          * 左侧对象组件列表 模拟滚动条
