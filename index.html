@@ -19,14 +19,14 @@
 <body class="dark show-cell-border fixed-config-panel">
   <div class="page-topbar">
     <div class="logo-wrapper pull-left">
-      <a href="javascript:;" class="logo"><img src="img/logo.png" height="24" width="249" alt="" class="logo-img">
+      <a href="javascript:;" class="logo">Form builder
       </a>
     </div>
     <div class="pull-right">
       <ul class="item-list clearfix">
         <li class="cell js-tooltips" data-placement="bottom" title="边框显示/隐藏" data-role="border-toggler"><i class="fa fa-square-o"></i>
         </li>
-       <!--  <li class="cell js-tooltips" data-placement="bottom" title="全屏" data-role="full-screen-toggler"><i class="fa fa-arrows"></i>
+        <!--  <li class="cell js-tooltips" data-placement="bottom" title="全屏" data-role="full-screen-toggler"><i class="fa fa-arrows"></i>
         </li> -->
         <li class="cell js-tooltips" data-placement="bottom" title="预览" data-role="preview-toggler"><i class="fa fa-eye"></i></i>
         </li>
@@ -209,22 +209,10 @@
   <script type="text/html" id="art-form-group">
     <div class="form-group">
       <label class="control-label">
-      {{title}} 
-      {{if tips}}
-        <i class="fa fa-info-circle js-tooltips" data-placement="top" title="{{tips}}"></i>
-      {{/if}}
-     </label>
-      {{if type == '1'}}
-        {{include 'art-input-text'}}
-      {{else if type == '2' }}
-        {{include 'art-checkbox' $data}}
-      {{else if type == '3' }}
-        {{include 'art-radio' $data}}
-      {{else if type == '4' }}
-        {{include 'art-input-group' $data}}
-      {{else if type == '5' }}
-        {{include 'art-input-group' $data}}
-      {{/if}}
+        {{title}} {{if tips}}
+        <i class="fa fa-info-circle js-tooltips" data-placement="top" title="{{tips}}"></i> {{/if}}
+      </label>
+      {{if type == '1'}} {{include 'art-input-text'}} {{else if type == '2' }} {{include 'art-checkbox' $data}} {{else if type == '3' }} {{include 'art-radio' $data}} {{else if type == '4' }} {{include 'art-input-group' $data}} {{else if type == '5' }} {{include 'art-input-group' $data}} {{/if}}
     </div>
   </script>
   <script type="text/html" id="art-input-text">
@@ -273,24 +261,20 @@
   </script>
   <script type="text/html" id="art-preview">
     <div class="horizontal-form clearfix">
-        {{each $data}}
-          {{if $value.category == 'group'}}
-             <h3 class="form-section clearfix">{{$value.title}}{{if $value.tips}}<i class="fa fa-info-circle js-tooltips" data-placement="top" title="{{$value.tips}}"></i>{{/if}}</h3>
-             {{if $value.children.length > 0}}
-               <div class="group clearfix">
-                 {{each $value.children}}
-                 <div class="col-xs-6" style="{{ $value.newLine | getCssByNewLine}}">
-                    {{include 'art-form-group' $value}}
-                 </div>
-                 {{/each}}
-               </div>
-             {{/if}}
-          {{else}}
-            <div class="col-xs-6" style="{{ $value.newLine | getCssByNewLine}}">
-              {{include 'art-form-group' $value}}
-           </div> 
-          {{/if}}
-        {{/each}}
+      {{each $data}} {{if $value.category == 'group'}}
+      <h3 class="form-section clearfix">{{$value.title}}{{if $value.tips}}<i class="fa fa-info-circle js-tooltips" data-placement="top" title="{{$value.tips}}"></i>{{/if}}</h3> {{if $value.children.length > 0}}
+      <div class="group clearfix">
+        {{each $value.children}} {{if $value.display == '1'}}
+        <div class="col-xs-6" style="{{ $value.newLine | getCssByNewLine}}">
+          {{include 'art-form-group' $value}}
+        </div>
+        {{/if}} {{/each}}
+      </div>
+      {{/if}} {{else if $value.display == '1'}}
+      <div class="col-xs-6" style="{{ $value.newLine | getCssByNewLine}}">
+        {{include 'art-form-group' $value}}
+      </div>
+      {{/if}} {{/each}}
     </div>
   </script>
   <script>
