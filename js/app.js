@@ -210,8 +210,29 @@ var App = (function() {
             });
             //清空画布
             $('body').on('click', '[data-role="clear-toggler"]', function() {
-                $('[data-role="canvas"]').empty();
-                $('#container-property').empty();
+                if ($('[data-role="canvas"]').find('[data-category]').size() == 0) {
+                    toastr.error('画布是空的，你逗我呢。', '提醒！');
+                    return
+                }
+                bootbox.confirm({
+                    message: "确定要清空画布吗？",
+                    buttons: {
+                        confirm: {
+                            label: '确定',
+                            className: 'btn-danger'
+                        },
+                        cancel: {
+                            label: '再想想',
+                            className: 'btn-default'
+                        }
+                    },
+                    callback: function(result) {
+                        if (result) {
+                            $('[data-role="canvas"]').empty();
+                            $('#container-property').empty();
+                        }
+                    }
+                });
             });
             //预览
             $('body').on('click', '[data-role="preview-toggler"]', function() {
@@ -236,19 +257,17 @@ var App = (function() {
                     url: 'http://localhost:8888/bss-form-builder/mock/list.json',
                     type: 'post',
                     dataType: 'json',
-                    data: {data: App.parseData()},
-                })
-                .done(function() {
+                    data: {
+                        data: App.parseData()
+                    },
+                }).done(function() {
                     console.log(JSON.stringify(App.parseData(), null, '\t'))
                     toastr.success('提交成功', '恭喜！');
-                })
-                .fail(function() {
+                }).fail(function() {
                     console.log("error");
-                })
-                .always(function() {
+                }).always(function() {
                     console.log("complete");
                 });
-                
             });
             // $('[data-role="full-screen-toggler"]').toggle($(document).fullScreen() != null))
         },
@@ -297,7 +316,7 @@ var App = (function() {
                     });
                     records.push(obj);
                 }
-            });            
+            });
             return records;
         },
         /** 
