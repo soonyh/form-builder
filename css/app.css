@@ -16,6 +16,7 @@ body {
     height: 100%;
     font-size: 14px;
     overflow: hidden;
+    color: #333;
 }
 .padding-5 {
     padding: 5px;
@@ -25,6 +26,9 @@ body {
 }
 .display-block {
     display: block!important;
+}
+.text-center {
+    text-align: center;
 }
 .animated {
     -webkit-transition: all .3s ease-in-out 0s;
@@ -37,13 +41,13 @@ body {
 .opacity {
     opacity: 0.5;
     filter: alpha(opacity=50);
-    filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+    filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=50);
 }
 /* ==========================================================================
      dark 主题
      ========================================================================== */
 
-body.dark {
+body.dark .page-topbar, body.dark .page-sidebar,body.dark .page-config-panel{
     color: #b9a5a6;
 }
 .dark .top-bar {
@@ -141,7 +145,6 @@ body.dark {
 .fixed-config-panel .page-canvas {
     right: 225px;
 }
-
 /* ==========================================================================
      canvas中的拖拽单位
      ========================================================================== */
@@ -220,6 +223,7 @@ body.dark {
     box-shadow: none;
     border-color: #ccc;
 }*/
+
 .bss-canvas .input-group-addon {
     border-color: #ddd;
 }
@@ -439,22 +443,39 @@ body.dark {
     right: 8px;
     float: right;
 }
-
 /* ==========================================================================
      modal-preview
      ========================================================================== */
-.modal-preview{color: #333;}
-.modal-preview .modal-header{border-bottom: none; padding-bottom:8px;}
-.modal-preview .form-section:first-child{margin-top: 5px;}
+
+.modal-preview {
+    color: #333;
+}
+.modal-preview .modal-header {
+    border-bottom: none;
+    padding-bottom: 8px;
+    background-color: #eee;
+    border-bottom: 1px solid #ddd;
+    -moz-border-radius: 5px 5px 0 0;
+    -wekit-border-radius: 5px 5px 0 0;
+    border-radius: 5px 5px 0 0;
+    /*ie9+有效*/
+}
+.modal-preview .form-section:first-child {
+    margin-top: 5px;
+}
 .modal-preview .form-section {
-    margin:30px 0px 25px 0px;
+    margin: 30px 0px 25px 0px;
     padding-bottom: 5px;
     border-bottom: 1px solid #eee;
     float: left;
     width: 100%;
     font-weight: bold;
+    font-size: 16px;
+    padding-left: 15px;
+}
+.modal-preview .form-section i {
     font-size: 14px;
 }
-.modal-preview .form-section i{font-size: 14px;}
-.modal-header .close{margin-top: -8px;}
-.modal-preview .group{margin-bottom: 25px;}
+.modal-preview .group {
+    margin-bottom: 35px;
+}
