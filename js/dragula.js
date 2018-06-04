@@ -293,16 +293,10 @@
                         return prefix + '_' + Math.floor(Math.random() * (new Date()).getTime());
                     }
 
+
                     function start(context) {
                         if (isCopy(context.item, context.source)) {
-                            // _copy = context.item.cloneNode(true);
-                            var _id = $(context.item).data('id');
-                            var _label = $(context.item).data('title');
                             var _randomId = getUniquedId('drag');
-                            // _copy = $('<div class="col-xs-6 dragula-cell" data-id='+_id+' id="'+_randomId+'" onclick="App.editIt(\''+_randomId+'\')"><div class="cell"><a href="javascript:;" class="delete" onclick="App.deleteIt(\''+_randomId+'\')">删除</a><div class="form-group"> <label class="control-label"><span data-role="title-slot" class="control-text">'+_label+'</span> <span data-role="help-slot"></span></label> <div data-role="input-slot"><input type="text" class="form-control"></div> </div> </div> </div>')[0];
-                            // console.info('ssssssss',$.extend({}, $(context.item).data(), {randomId:_randomId}))
-                            // template('art-basic-component', $.extend({}, $(context.item).data(), {randomId:_randomId}) )
-                            // $('body').trigger('startDrag',[drake,context.item]);
                             if ($(context.item).data('category') == 'basic') {
                                 _copy = $(template('art-basic-component', $.extend({}, $(context.item).data(), {
                                     randomId: _randomId
@@ -785,7 +779,7 @@
             'use strict';
             var atoa = require('atoa');
             var debounce = require('./debounce');
-            module.exports = function emitter(thing, options) {
+            module.exports = function emitter(thing, options) {console.log(2)
                 var opts = options || {};
                 var evt = {};
                 if (thing === undefined) {

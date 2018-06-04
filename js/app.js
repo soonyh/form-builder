@@ -14,9 +14,6 @@ template.helper('setCheckbox', function(value) {
 template.helper('setSelected', function(type, value) {
     return value == type ? 'selected' : '';
 });
-template.helper('str', function(value) {
-    return JSON.stringify(value);
-});
 var App = (function() {
     var globalSetting = function() {
         //提示弹窗
@@ -253,6 +250,8 @@ var App = (function() {
                     toastr.error('画布是空的，你逗我呢。', '提醒！');
                     return
                 }
+                var nanobar = new Nanobar();
+                nanobar.go(76);
                 $.ajax({
                     url: 'http://localhost:8888/bss-form-builder/mock/list.json',
                     type: 'post',
@@ -263,6 +262,7 @@ var App = (function() {
                 }).done(function() {
                     console.log(JSON.stringify(App.parseData(), null, '\t'))
                     toastr.success('提交成功', '恭喜！');
+                    nanobar.go(100);
                 }).fail(function() {
                     console.log("error");
                 }).always(function() {
