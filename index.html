@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="zh-cn" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="zh-cn" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="zh-cn">
+<!--<![endif]-->
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>合同配置</title>
+  <!-- <link href='http://192.168.1.25:8886/frm/fish-desktop/css/fish-desktop-sales-center.css' rel='stylesheet' type='text/css' /> -->
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <!-- <link href='http://192.168.1.25:8886/frm/template/css/template.css' rel='stylesheet' type='text/css' /> -->
+  <link href='font-awesome/css/font-awesome.min.css' rel='stylesheet' type='text/css' />
+  <!-- <link href='dragula/grapes.min.css' rel='stylesheet' type='text/css' /> -->
+  <!-- <link href='dragula/grapesjs-preset-webpage.css' rel='stylesheet' type='text/css' /> -->
+  <link href='css/plugins.css' rel='stylesheet' type='text/css' />
+  <!-- <link href='dragula/example.css' rel='stylesheet' type='text/css' /> -->
+  <link href='css/app.css' rel='stylesheet' type='text/css' />
+</head>
+
+<body class="dark show-cell-border fixed-config-panel">
+  <div class="page-topbar">
+    <div class="logo-wrapper pull-left">
+      <a href="javascript:;" class="logo"><img src="img/logo.png" height="24" width="249" alt="" class="logo-img">
+      </a>
+    </div>
+    <div class="pull-right">
+      <ul class="item-list clearfix">
+        <li class="cell js-tooltips" data-placement="bottom" title="边框显示/隐藏" data-role="border-toggler"><i class="fa fa-square-o"></i>
+        </li>
+        <li class="cell js-tooltips" data-placement="bottom" title="全屏" data-role="full-screen-toggler"><i class="fa fa-arrows"></i>
+        </li>
+        <li class="cell js-tooltips" data-placement="bottom" title="预览" data-role="preview-toggler"><i class="fa fa-eye"></i></i>
+        </li>
+        <li class="cell js-tooltips" data-placement="bottom" title="清空画布" data-role="clear-toggler"><i class="fa fa-eraser"></i></i>
+        </li>
+        <li class="cell js-tooltips" data-placement="bottom" title="提交模板" data-role="save-toggler"><i class="fa fa-save"></i></i>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="page-sidebar" id="sidebar">
+    <div class="search-wrapper bottom-line">
+      <div class="input-icon right">
+        <i class="fa fa-search"></i>
+        <input type="text" class="form-control search" placeholder="快速搜索">
+      </div>
+    </div>
+
+    <div class="categories-wrapper">
+      <div class="categories-group">
+        <div class="category">
+          <div class="categories-header bottom-line">
+            <div class="categories-title"><i class="fa  fa-columns"></i> 容器组件</div>
+          </div>
+          <div class="categories-body collapse in">
+            <ul class="categories-list js-group">
+              <li data-category="group" data-id="10086" data-title="容器名称" data-tips=""><i class="fa fa-angle-right"></i> Group</li>
+            </ul>
+          </div>
+        </div>
+        <div class="category">
+          <div class="categories-header bottom-line">
+            <div class="categories-title"><i class="fa fa-tasks"></i> 对象组件</div>
+          </div>
+          <div class="categories-body collapse in" data-role="slimScroll-categories">
+            <ul class="categories-list js-basic">
+              <div style="padding:15px 10px;">暂无数据</div>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pagination-wrapper">
+      <ul id="pagination" class="pagination">
+    </div>
+  </div>
+  <div class="page-canvas animated" data-role="slimScroll-page-canvas">
+    <div class="page-canvas-wrapper">
+      <div class="row bss-canvas" data-role="canvas">
+        <!-- <h3 class="form-section text-center">中国移动通信福建有限公司业务协议</h3> -->
+
+      </div>
+    </div>
+  </div>
+  <div class="page-config-panel animated">
+    <div style="height:100%" id="container-property">
+
+    </div>
+  </div>
+  <div id="myModal" class="modal fade modal-preview">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!--[if lt IE 9]>
+  <script src="http://localhost:8888/bss-form-builder/js/respond.min.js"></script>
+  <script src="http://localhost:8888/bss-form-builder/js/es5-shim.min.js"></script>
+  <script src="http://localhost:8888/bss-form-builder/js/es5-sham.min.js"></script>
+  <![endif]-->
+  <script src='js/jquery.min.js'></script>
+  <script src="js/third-party.js"></script>
+  <script src="js/dragula.js"></script>
+  <script src="mock/mock.js"></script>
+  <!-- <script src="mock/rules.js"></script> -->
+  <script src="js/app.js"></script>
+  <script type="text/html" id="art-list">
+    {{if list.length > 0}} {{each list}}
+    <li data-category="basic" data-id="{{$value.id}}" data-title="{{$value.title}}" data-type="{{$value.type}}" data-tips="{{$value.tips}}" data-read-only="{{$value.readOnly}}" data-display="{{$value.display}}" data-new-line="{{$value.newLine}}"><i class="fa fa-angle-right"></i> <span class="pageItem">{{$value.title}}</span>
+    </li>
+    {{/each}} {{else}}
+    <div style="padding:15px 10px;">暂无数据</div>
+    {{/if}}
+  </script>
+  <script type="text/html" id="art-basic-component">
+    <div data-category="{{category}}" class="col-xs-6 dragula-cell {{display | getClassByDisplay}}" id="{{randomId}}" data-id="{{id}}" data-title="{{title}}" data-type="{{type}}" data-tips="{{tips}}" data-read-only="{{readOnly}}" data-display="{{display}}" data-new-line="{{newLine}}" onclick="App.configIt('{{randomId}}')" style="{{newLine | getCssByNewLine}}">
+      <div class="cell"><a href="javascript:;" class="delete" onclick="App.deleteIt('{{randomId}}')"><i class="fa fa-trash"></i></a>
+        <div class="form-group">
+          <label class="control-label">
+            <span data-role="title-slot" class="control-text">{{title}}</span>
+            <span data-role="tips-slot">
+              {{if tips}}
+               {{include 'art-tips' tips}}
+              {{/if}}
+            </span>
+          </label>
+          <div data-role="input-slot">
+            <input type="text" class="form-control">
+          </div>
+        </div>
+      </div>
+    </div>
+  </script>
+  <script type="text/html" id="art-group-component">
+    <div data-category="{{category}}" class="col-xs-12 dragula-group" id="{{randomId}}" onclick="App.configIt('{{randomId}}')" data-title="{{title}}" data-tips="{{tips}}">
+      <div class="panel panel-default"><a href="javascript:;" class="delete" onclick="App.deleteIt('{{randomId}}')"><i class="fa fa-trash"></i></a>
+        <div class="panel-heading">
+          <h3 class="panel-title"><span class="" data-role="title-slot">{{title}}</span> <span data-role="tips-slot"></span></h3>
+        </div>
+        <div class="panel-body" data-role="input-slot">
+
+        </div>
+      </div>
+    </div>
+  </script>
+  <script type="text/html" id="art-config-panel">
+    <div class="property-group" data-editing-component-id="{{randomId}}" data-editing-component-title="{{title}}">
+      <div class="property">
+        <div class="property-title">组件名称</div>
+        <div class="property-body">
+          <input type="text" name="title" onkeyup="App.handleTitle(this)" value="{{title}}">
+        </div>
+      </div>
+      {{if type != undefined }}
+      <div class="property">
+        <div class="property-title">组件类型</div>
+        <div class="property-body">
+          <select name="type" onchange="App.handleType(this)">
+            <option value="1" {{type | setSelected : '1'}}>text</option>
+            <option value="2" {{type | setSelected : '2'}}>checkbox</option>
+            <option value="3" {{type | setSelected : '3'}}>radio</option>
+            <option value="4" {{type | setSelected : '4'}}>datetime</option>
+            <option value="5" {{type | setSelected : '5'}}>popup</option>
+          </select>
+        </div>
+      </div>
+      {{/if}}
+      <div class="property">
+        <div class="property-title">提示文字</div>
+        <div class="property-body">
+          <textarea name="tips" cols="30" rows="2" onkeyup="App.handleTips(this)">{{tips}}</textarea>
+        </div>
+      </div>
+      {{if readOnly != undefined }}
+      <div class="property">
+        <div class="property-title">是否只读</div>
+        <div class="property-body">
+          <input type="checkbox" name="readOnly" {{ readOnly | setCheckbox}} onchange="App.handleReadOnly(this)">
+        </div>
+      </div>
+      {{/if}} {{if display != undefined }}
+      <div class="property">
+        <div class="property-title">是否显示</div>
+        <div class="property-body">
+          <input type="checkbox" name="display" {{ display | setCheckbox}} onchange="App.handleDisplay(this)">
+        </div>
+      </div>
+      {{/if}} {{if newLine != undefined }}
+      <div class="property">
+        <div class="property-title">是否换行</div>
+        <div class="property-body">
+          <input type="checkbox" name="newLine" {{ newLine | setCheckbox}} onchange="App.handleNewLine(this)">
+        </div>
+      </div>
+      {{/if}}
+    </div>
+  </script>
+
+  <script type="text/html" id="art-form-group">
+    <div class="form-group">
+      <label class="control-label">
+      {{title}} 
+      {{if tips}}
+        <i class="fa fa-info-circle js-tooltips" data-placement="top" title="{{tips}}"></i>
+      {{/if}}
+     </label>
+      {{if type == '1'}}
+        {{include 'art-input-text'}}
+      {{else if type == '2' }}
+        {{include 'art-checkbox' $data}}
+      {{else if type == '3' }}
+        {{include 'art-radio' $data}}
+      {{else if type == '4' }}
+        {{include 'art-input-group' $data}}
+      {{else if type == '5' }}
+        {{include 'art-input-group' $data}}
+      {{/if}}
+    </div>
+  </script>
+  <script type="text/html" id="art-input-text">
+    <input type="text" class="form-control" {{readOnly | getPropByReadOnly}}>
+  </script>
+  <script type="text/html" id="art-checkbox">
+    <div class="checkbox-list">
+      <label class="checkbox-inline">
+        <input type="checkbox" {{readOnly | getPropByReadOnly}}> checkbox1
+      </label>
+      <label class="checkbox-inline">
+        <input type="checkbox" {{readOnly | getPropByReadOnly}}> checkbox2
+      </label>
+      <label class="checkbox-inline">
+        <input type="checkbox" {{readOnly | getPropByReadOnly}}> checkbox3
+      </label>
+    </div>
+  </script>
+  <script type="text/html" id="art-radio">
+    <div class="radio-list">
+      <label class="radio-inline">
+        <input type="radio" {{readOnly | getPropByReadOnly}}> radio1
+      </label>
+      <label class="radio-inline">
+        <input type="radio" {{readOnly | getPropByReadOnly}}> radio2
+      </label>
+      <label class="radio-inline">
+        <input type="radio" {{readOnly | getPropByReadOnly}}> radio3
+      </label>
+    </div>
+  </script>
+  <script type="text/html" id="art-input-group">
+    <div class="input-group">
+      <input type="text" class="form-control" {{readOnly | getPropByReadOnly}}>
+      <span class="input-group-addon">
+          {{if type == '4'}}
+          <i class="fa fa-calendar"></i>
+          {{else if type == '5'}}
+          <i class="fa fa-search"></i>
+          {{/if}}
+      </span>
+    </div>
+  </script>
+  <script type="text/html" id="art-tips">
+    <i class="fa fa-info-circle js-tooltips" data-placement="top" title="{{tips}}"></i>
+  </script>
+  <script type="text/html" id="art-preview">
+    <div class="horizontal-form clearfix">
+        {{each $data}}
+          {{if $value.category == 'group'}}
+             <h3 class="form-section clearfix">{{$value.title}}{{if $value.tips}}<i class="fa fa-info-circle js-tooltips" data-placement="top" title="{{$value.tips}}"></i>{{/if}}</h3>
+             {{if $value.children.length > 0}}
+               <div class="group clearfix">
+                 {{each $value.children}}
+                 <div class="col-xs-6" style="{{ $value.newLine | getCssByNewLine}}">
+                    {{include 'art-form-group' $value}}
+                 </div>
+                 {{/each}}
+               </div>
+             {{/if}}
+          {{else}}
+            <div class="col-xs-6" style="{{ $value.newLine | getCssByNewLine}}">
+              {{include 'art-form-group' $value}}
+           </div> 
+          {{/if}}
+        {{/each}}
+    </div>
+  </script>
+  <script>
+    App.init();
+
+    // $('[data-role="canvas"]').html(template('art-basic-component', {
+    //   "id": 1,
+    //   "title": "林阶容线场消",
+    //   "type": 1,
+    //   "tips": "sd",
+    //   "newLine": "0",
+    //   "display": "1",
+    //   "readOnly": "0"
+    // }))
+  </script>
+</body>
+
+</html>

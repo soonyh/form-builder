@@ -1,0 +1,460 @@
+/* ==========================================================================
+     重置
+     ========================================================================== */
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+*:before, *:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+body {
+    height: 100%;
+    font-size: 14px;
+    overflow: hidden;
+}
+.padding-5 {
+    padding: 5px;
+}
+.margin-5 {
+    margin: 5px;
+}
+.display-block {
+    display: block!important;
+}
+.animated {
+    -webkit-transition: all .3s ease-in-out 0s;
+    -moz-transition: all .3s ease-in-out 0s;
+    -ms-transition: all .3s ease-in-out 0s;
+    -o-transition: all .3s ease-in-out 0s;
+    transition: all .3s ease-in-out 0s;
+    /*property duration animation-type delay*/
+}
+.opacity {
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+    filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+}
+/* ==========================================================================
+     dark 主题
+     ========================================================================== */
+
+body.dark {
+    color: #b9a5a6;
+}
+.dark .top-bar {
+    background-color: #463a3c;
+}
+.dark .bottom-line {
+    border-bottom: 1px solid #2f2728;
+}
+.dark .categories-list li:active {
+    outline: 1px solid #d97aa6;
+}
+.dark .categories-list li:hover {
+    color: #d97aa6;
+}
+.dark .categories-header {
+    background-color: #3f3436;
+}
+.dark .pagination > li.active> a {
+    background-color: #655d5e;
+    border-color: #655d5e;
+    /*color: #b9a5a6;*/
+}
+.dark .page-topbar, .dark .page-sidebar, .dark .page-config-panel {
+    background-color: #463a3c;
+}
+.dark .item-list .cell:hover, .dark .item-list .cell.active {
+    background-color: #231d1e;
+    color: #d97aa6;
+}
+.dark .categories-header {
+    background-color: #3f3436;
+}
+.dark .page-sidebar, .dark .page-config-panel {
+    border-top: 2px solid #31282a;
+}
+.dark .input-icon i {
+    color: #b9a5a6;
+}
+/* ==========================================================================
+     layout
+     ========================================================================== */
+
+.page-topbar, .page-sidebar, .page-canvas, .page-config-panel {
+    position: absolute;
+}
+.page-topbar {
+    height: 40px;
+    padding: 0 15px;
+    left: 0;
+    right: 0;
+    z-index: 4;
+}
+.page-sidebar {
+    width: 225px;
+    left: 0;
+    top: 40px;
+    bottom: 0;
+    z-index: 2;
+    border-top: 2px solid #ccc;
+}
+.page-canvas {
+    left: 225px;
+    top: 40px;
+    bottom: 0;
+    right: 0;
+    border: 3px dashed #ccc;
+    background-color: #fff;
+    color: #666;
+    overflow-y: auto;
+    z-index: 2;
+}
+.page-canvas .page-canvas-wrapper {
+    min-width: 960px;
+    width: 90%;
+    overflow-x: auto;
+    margin: 20px auto;
+    padding: 25px;
+    /*border: 1px dashed #ddd;*/
+}
+.bss-canvas {
+    min-height: 600px;
+}
+.page-sidebar.right {
+    right: 0;
+    left: auto;
+}
+.page-config-panel {
+    width: 225px;
+    right: 0;
+    top: 40px;
+    bottom: 0;
+    border-top: 2px solid #ccc;
+    z-index: 3;
+}
+.fixed-config-panel .page-canvas {
+    right: 225px;
+}
+
+/* ==========================================================================
+     canvas中的拖拽单位
+     ========================================================================== */
+
+.dragula-cell, .dragula-group {
+    cursor: move;
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+}
+.dragula-cell > .cell {
+    padding: 15px;
+    position: relative;
+    border: 1px dashed transparent;
+}
+.show-cell-border .dragula-cell > .cell {
+    border: 1px dashed #ddd;
+}
+.bss-canvas .editing > .cell, .bss-canvas .editing > .panel {
+    border: 1px dashed #3b97e3;
+    /*    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);*/
+    /*ie9+有效 (inset) x y blur spread color*/
+}
+/*.ie8 .dragula-cell.editing  > .cell{
+    background-color: #f3f1f1;
+}*/
+
+.bss-canvas .delete {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+}
+.gu-mirror .delete {
+    display: none;
+}
+.gu-mirror {
+    list-style: none;
+}
+.bss-canvas .dragula-group.editing>.panel > .delete, .bss-canvas .dragula-cell.editing > .cell > .delete {
+    display: block;
+}
+.bss-canvas .editing .delete:hover {
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+}
+.bss-canvas .checkbox-list, .bss-canvas .radio-list {
+    line-height: 34px;
+    height: 34px;
+}
+.bss-canvas .checkbox-list input[type="checkbox"], .bss-canvas .radio-list input[type="radio"] {
+    position: static;
+    vertical-align: text-bottom;
+}
+.bss-canvas .col-xs-6 {
+    margin-bottom: 15px;
+}
+.bss-canvas .panel {
+    box-shadow: none;
+    border-radius: 0;
+    position: relative;
+}
+.bss-canvas .form-group {
+    margin-bottom: 0;
+    border-color: #eee;
+}
+/*.bss-canvas .form-control[readonly] {
+    background-color: #fff;
+}
+.bss-canvas .form-control[disabled] {
+    background-color: #eee;
+}
+.bss-canvas .form-control[readonly]:focus {
+    box-shadow: none;
+    border-color: #ccc;
+}*/
+.bss-canvas .input-group-addon {
+    border-color: #ddd;
+}
+.bss-canvas .form-group > .control-text {
+    display: block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 80%;
+}
+/* ==========================================================================
+     设置面板
+     ========================================================================== */
+
+.property-group {
+    padding: 15px 8px;
+}
+.property.flex {
+    float: left;
+    width: 50%
+}
+.property {
+    padding: 0 5px;
+    margin-bottom: 10px;
+}
+.property-header {
+    font-size: 16px;
+    margin-bottom: 0;
+    padding: 0 10px;
+    display: block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100%
+}
+.property-title {
+    margin: 5px 5px 3px 0;
+}
+.property input, .property select, .property textarea {
+    color: inherit;
+    border: none;
+    box-sizing: border-box;
+    width: 100%;
+    color: #666;
+    position: relative;
+    padding: 5px;
+    z-index: 1;
+    border: 1px solid #fff;
+}
+.property input:focus, .property select:focus, .property textarea:focus {
+    border-color: #66afe9;
+}
+.property input:focus, .property select:focus, .property textarea:focus {
+    outline: none
+}
+/* ==========================================================================
+     logo
+     ========================================================================== */
+
+.logo-wrapper {
+    height: 100%;
+    line-height: 100%;
+}
+.logo {
+    display: inline-block;
+    height: 100%;
+    line-height: 40px;
+}
+.logo-img {
+    vertical-align: middle;
+}
+/* ==========================================================================
+     topbar
+     ========================================================================== */
+
+.page-topbar {
+    height: 40px;
+    padding: 0 15px;
+}
+.page-topbar i {
+    font-size: 18px;
+    line-height: 40px;
+}
+.page-topbar .item-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.page-topbar .item-list .cell {
+    list-style: none;
+    float: left;
+    margin-right: 5px;
+    width: 36px;
+    text-align: center;
+    cursor: pointer;
+}
+.page-topbar .item-list .cell:hover, .item-list .cell.active {
+    background-color: #231d1e;
+}
+.page-topbar i.active {
+    color: #d97aa6;
+}
+/* ==========================================================================
+     search-box
+     ========================================================================== */
+
+.search-wrapper {
+    padding: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 59px;
+}
+.search-input {
+    border: none;
+    background-color: #fff;
+    margin: 5px 0;
+    padding: 10px;
+    height: 28px;
+    width: 100%;
+    -moz-border-radius: 0px;
+    -wekit-border-radius: 0px;
+    border-radius: 0px;
+    /*ie9+有效*/
+}
+/* ==========================================================================
+     pagination
+     ========================================================================== */
+
+.pagination-wrapper {
+    padding: 10px 0 2px;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 49px;
+}
+.pagination {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.pagination > li > a {
+    padding: 5px 8px;
+}
+/*
+.pagination>li:first-child>a,.pagination>li:last-child>a{border-radius: 0;}
+.dark .pagination >li.active >a{border-color: #d97aa6; background-color: #d97aa6;}
+.dark .pagination >li >a:hover { background-color: #d97aa6;}*/
+
+.bss-pagination a {
+    padding: 4px 5px;
+    min-width: 24px;
+    display: inline-block;
+    text-align: center;
+    margin: 0 3px;
+}
+.bss-pagination a:hover {
+    opacity: 0.8;
+}
+.bss-pagination a.active {
+    background-color: #d97aa6;
+}
+/* ==========================================================================
+     侧边栏list
+     ========================================================================== */
+
+.categories-wrapper {
+    position: absolute;
+    top: 49px;
+    bottom: 49px;
+    left: 0;
+    right: 0;
+}
+.categories-header {
+    padding: 10px;
+    background-color: #ddd;
+}
+.categories-body {
+    padding: 0 10px;
+}
+.categories-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.categories-list li {
+    padding: 5px;
+    margin: 5px;
+    cursor: move;
+}
+.categories-list li:active {
+    outline: 1px solid #d97aa6;
+}
+.input-icon {
+    position: relative;
+}
+.input-icon input {
+    padding-left: 33px !important;
+}
+.input-icon i {
+    color: #ccc;
+    display: block;
+    position: absolute;
+    margin: 11px 2px 4px 10px;
+    width: 16px;
+    height: 16px;
+    font-size: 16px;
+    text-align: center;
+}
+.input-icon.right input {
+    padding-left: 12px !important;
+    padding-right: 33px !important;
+}
+.input-icon.right i {
+    right: 8px;
+    float: right;
+}
+
+/* ==========================================================================
+     modal-preview
+     ========================================================================== */
+.modal-preview{color: #333;}
+.modal-preview .modal-header{border-bottom: none; padding-bottom:8px;}
+.modal-preview .form-section:first-child{margin-top: 5px;}
+.modal-preview .form-section {
+    margin:30px 0px 25px 0px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #eee;
+    float: left;
+    width: 100%;
+    font-weight: bold;
+    font-size: 14px;
+}
+.modal-preview .form-section i{font-size: 14px;}
+.modal-header .close{margin-top: -8px;}
+.modal-preview .group{margin-bottom: 25px;}
