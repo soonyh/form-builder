@@ -74,8 +74,7 @@ var App = (function() {
          */
         loadBasicComponentList: function() {
             $.ajax({
-                url: 'http://localhost:8888/bss-form-builder/mock/list.json',
-                // url: 'list.json',
+                url: 'list.json',
                 type: 'post',
                 dataType: 'json'
             }).done(function(data) {
@@ -95,7 +94,7 @@ var App = (function() {
                             bottom: 0
                         });
                         App.handleListScroller('[data-role="slimScroll-categories"]');
-                        toastr.error('IE8不支持组件搜索（其他可正常使用），为了获得更好体验建议使用谷歌浏览器。', '友情提醒！')
+                        toastr.warning('IE8可正常使用，但不支持组件搜索。为了获得更好体验建议使用谷歌浏览器。', '友情提醒！')
                         return
                     }
                     $.getScript('./js/list.min.js', function() {
@@ -120,8 +119,9 @@ var App = (function() {
                     });
                 }
             }).fail(function(error) {
-                console.log(error)
                 toastr.error('后台接口服务错误', '请求失败！');
+            }).always(function(){                
+                setTimeout(function(){App.removeLoader();},300);
             })
         },
         /** 
@@ -134,38 +134,6 @@ var App = (function() {
             // } else {
             //     $('body').removeClass('show-cell-border');
             // }
-        },
-        /**
-         * 点击开始编辑组件
-         * 1、获取组件dom上挂载的数据
-         * 2、渲染模板#art-config-panel
-         * 3、添加editing样式
-         */
-        configIt: function(id) {
-            // //阻止click冒泡
-            // var e = e || arguments.callee.caller.arguments[0] || event || window.event;
-            // console.log(e)
-            // if (e && e.stopPropagation) {
-            //     e.stopPropagation();
-            // }
-            // var $currentComponent = $('#' + id);
-            // $('.dragula-cell,.dragula-group').removeClass('editing');
-            // $currentComponent.addClass('editing');
-            // $('#container-property').html(template('art-config-panel', $.extend({}, $('#' + id).data(), {
-            //     randomId: id
-            // })));
-            // App.handleSwitcher();
-            // App.handlePanelScroller('.property-group');
-            // App.showPropertyPanel(true);
-        },
-        deleteIt: function(id) {
-            //阻止click冒泡
-            /*            var e = e || arguments.callee.caller.arguments[0] || window.event;
-                        if (e && e.stopPropagation) {
-                            e.stopPropagation()
-                        }
-                        $('#' + id).remove();
-                        $('#container-property').empty();*/
         },
         showPropertyPanel: function(flag) {
             if (!!flag) {
@@ -253,7 +221,7 @@ var App = (function() {
                 var nanobar = new Nanobar();
                 nanobar.go(76);
                 $.ajax({
-                    url: 'http://localhost:8888/bss-form-builder/mock/list.json',
+                    url: 'list.json',
                     type: 'post',
                     dataType: 'json',
                     data: {
@@ -262,44 +230,42 @@ var App = (function() {
                 }).done(function() {
                     console.log(JSON.stringify(App.parseData(), null, '\t'))
                     toastr.success('提交成功', '恭喜！');
-                    nanobar.go(100);
                 }).fail(function() {
-                    console.log("error");
+                    toastr.error('后台接口服务错误', '请求失败！');
                 }).always(function() {
-                    console.log("complete");
+                    nanobar.go(100);
                 });
             });
-            // $('[data-role="full-screen-toggler"]').toggle($(document).fullScreen() != null))
-        },
-        /**
-         * 遍历画布上的组件，生成数据
-         * @return {Array} 返回一个数组，格式如下：
-             [{
-                 "category": "group",
-                 "title": "容器名称",
-                 "tips": "",
-                 "children": [{
-                     "category": "basic",
-                     "id": 2,
-                     "title": "完图采划图省切温油别有议亲",
-                     "type": 1,
-                     "tips": "",
-                     "readOnly": 0,
-                     "display": 1,
-                     "newLine": 0
-                 }]
-             }, {
+    },
+    /**
+     * 遍历画布上的组件，生成数据
+     * @return {Array} 返回一个数组，格式如下：
+         [{
+             "category": "group",
+             "title": "容器名称",
+             "tips": "",
+             "children": [{
                  "category": "basic",
-                 "id": 1,
-                 "title": "当军时情志",
+                 "id": 2,
+                 "title": "完图采划图省切温油别有议亲",
                  "type": 1,
                  "tips": "",
                  "readOnly": 0,
                  "display": 1,
                  "newLine": 0
              }]
-         */
-        parseData: function() {
+         }, {
+             "category": "basic",
+             "id": 1,
+             "title": "当军时情志",
+             "type": 1,
+             "tips": "",
+             "readOnly": 0,
+             "display": 1,
+             "newLine": 0
+         }]
+     */
+    parseData: function() {
             var records = [];
             $('[data-role="canvas"]').find('[data-category]').each(function(index, el) {
                 // 开始遍历
@@ -535,6 +501,15 @@ var App = (function() {
             App.handleListScroller('[data-role="slimScroll-categories"]');
             App.handlePanelScroller('.property-group');
         },
+        loader:function(){
+            if($('#page-preloader').size() > 0){
+                return
+            }
+          $('body').append('<div id="page-preloader"><span class="ie9-visiable ie8-visiable spinner-label">Loading...</span><span class="spinner ie8-hide ie9-hide"></span></div>')
+        },
+        removeLoader:function(){   
+           $('#page-preloader').remove();
+        },
         /**   
          * @param func        {function}  请求关联函数，实际应用需要调用的函数
          * @param wait        {number}    空闲时间，单位毫秒
@@ -649,5 +624,5 @@ var App = (function() {
         getCookie: function(key) {
             return Cookies.getJSON(name);
         },
-    }
+}
 })()
