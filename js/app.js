@@ -74,7 +74,7 @@ var App = (function() {
          */
         loadBasicComponentList: function() {
             $.ajax({
-                url: 'list.json',
+                url: 'mock/list.json',
                 type: 'post',
                 dataType: 'json'
             }).done(function(data) {
@@ -97,7 +97,7 @@ var App = (function() {
                         toastr.warning('IE8可正常使用，但不支持组件搜索。为了获得更好体验建议使用谷歌浏览器。', '友情提醒！')
                         return
                     }
-                    $.getScript('./js/list.min.js', function() {
+                    $.getScript('js/list.min.js', function() {
                         var list = new List('sidebar', {
                             valueNames: ['pageItem'], //item上绑定的样式
                             listClass: 'js-basic', //列表容器的样式
@@ -221,7 +221,7 @@ var App = (function() {
                 var nanobar = new Nanobar();
                 nanobar.go(76);
                 $.ajax({
-                    url: 'list.json',
+                    url: 'mock/list.json',
                     type: 'post',
                     dataType: 'json',
                     data: {
