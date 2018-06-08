@@ -17,9 +17,10 @@
 </head>
 
 <body class="dark show-cell-border fixed-config-panel">
+<div id="page-preloader"><span class="ie9-visiable ie8-visiable spinner-label">Loading...</span><span class="spinner ie8-hide ie9-hide"></span></div>
   <div class="page-topbar">
     <div class="logo-wrapper pull-left">
-      <a href="javascript:;" class="logo">Form builder
+      <a href="javascript:;" class="logo"><i class="fa fa-train"></i> LOGO
       </a>
     </div>
     <div class="pull-right">
@@ -123,8 +124,8 @@
     {{/if}}
   </script>
   <script type="text/html" id="art-basic-component">
-    <div data-category="{{category}}" class="col-xs-6 dragula-cell {{display | getClassByDisplay}}" id="{{randomId}}" data-id="{{id}}" data-title="{{title}}" data-type="{{type}}" data-tips="{{tips}}" data-read-only="{{readOnly}}" data-display="{{display}}" data-new-line="{{newLine}}" onclick="App.configIt('{{randomId}}')" style="{{newLine | getCssByNewLine}}">
-      <div class="cell"><a href="javascript:;" class="delete" onclick="App.deleteIt('{{randomId}}')"><i class="fa fa-trash"></i></a>
+    <div data-category="{{category}}" class="col-xs-6 dragula-cell {{display | getClassByDisplay}}" id="{{randomId}}" data-id="{{id}}" data-title="{{title}}" data-type="{{type}}" data-tips="{{tips}}" data-read-only="{{readOnly}}" data-display="{{display}}" data-new-line="{{newLine}}" style="{{newLine | getCssByNewLine}}">
+      <div class="cell"><a href="javascript:;" class="delete"><i class="fa fa-trash"></i></a>
         <div class="form-group">
           <label class="control-label">
             <span data-role="title-slot" class="control-text">{{title}}</span>
@@ -142,8 +143,8 @@
     </div>
   </script>
   <script type="text/html" id="art-group-component">
-    <div data-category="{{category}}" class="col-xs-12 dragula-group" id="{{randomId}}" onclick="App.configIt('{{randomId}}')" data-title="{{title}}" data-tips="{{tips}}">
-      <div class="panel panel-default"><a href="javascript:;" class="delete" onclick="App.deleteIt('{{randomId}}')"><i class="fa fa-trash"></i></a>
+    <div data-category="{{category}}" class="col-xs-12 dragula-group" id="{{randomId}}" data-title="{{title}}" data-tips="{{tips}}">
+      <div class="panel panel-default"><a href="javascript:;" class="delete"><i class="fa fa-trash"></i></a>
         <div class="panel-heading">
           <h3 class="panel-title"><span class="" data-role="title-slot">{{title}}</span> <span data-role="tips-slot"></span></h3>
         </div>
