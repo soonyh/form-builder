@@ -17,7 +17,7 @@
       timeout: '300'
   });
   
-  Mock.mock(/list/, {
+  Mock.mock(/list.json/, {
       "result": "1",
       "msg": "登录成功",
       "list|266": [{
